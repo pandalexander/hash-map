@@ -1,12 +1,16 @@
-function hash(key) {
-  let hashCode = 0;
-  let prime = 31;
+class HashMap {
+  hash(key) {
+    let hashCode = 0;
+    let prime = 31;
 
-  for (let i = 0; i < key.length; i++) {
-    hashCode = prime * hashCode + key.charCodeAt(i);
+    for (let i = 0; i < key.length; i++) {
+      hashCode = prime * hashCode + key.charCodeAt(i);
+    }
+
+    return hashCode;
   }
-
-  return hashCode;
 }
 
-console.log(hash("pete"));
+const test = new HashMap();
+
+console.log(test.hash("pete"));
