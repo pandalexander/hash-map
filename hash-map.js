@@ -34,6 +34,26 @@ class HashMap {
     console.log(this.hashMap);
     console.log("");
   }
+
+  get(key) {
+    let index = this.hash(key);
+    let currentBucket = this.hashMap[index];
+
+    if (currentBucket !== null) {
+      if (currentBucket.key === key) {
+        return currentBucket.value;
+      } else {
+        while (currentBucket.nextNode !== null) {
+          currentBucket = currentBucket.nextNode;
+          if (currentBucket.key === key) {
+            return currentBucket.value;
+          }
+        }
+      }
+    } else {
+      return null;
+    }
+  }
 }
 
 class Node {
@@ -46,6 +66,14 @@ class Node {
 
 const myHash = new HashMap(16);
 
-myHash.set("pete", "This is the value");
+myHash.set("pete", "This is the pete");
 
-myHash.set("tepe", "This is the second value");
+myHash.set("sara", "This is the sara");
+
+myHash.set("tepe", "This is the tepe");
+
+console.log(myHash.get("pete"));
+
+console.log(myHash.get("tepe"));
+
+console.log(myHash.get("peet"));
