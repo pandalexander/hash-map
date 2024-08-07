@@ -21,6 +21,10 @@ class HashMap {
     let hashCode = this.hash(key);
     let setIndex = hashCode;
 
+    if (setIndex < 0 || setIndex >= this.numOfBuckets.length) {
+      throw new Error("Trying to access index out of bound");
+    }
+
     if (this.hashMap[setIndex] === null) {
       this.hashMap[setIndex] = newNode;
     } else {
@@ -38,6 +42,10 @@ class HashMap {
   get(key) {
     let index = this.hash(key);
     let currentBucket = this.hashMap[index];
+
+    if (index < 0 || index >= this.numOfBuckets.length) {
+      throw new Error("Trying to access index out of bound");
+    }
 
     if (currentBucket !== null) {
       if (currentBucket.key === key) {
