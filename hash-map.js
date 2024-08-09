@@ -137,6 +137,11 @@ class HashMap {
     }
     return count;
   }
+
+  clear() {
+    this.hashMap = Array.from({ length: this.numOfBuckets }).fill(null);
+    return true;
+  }
 }
 
 class Node {
@@ -154,5 +159,9 @@ myHash.set("a", "This is the a");
 myHash.set("pa", "This is the pa");
 
 myHash.set("aaa", "This is the aaa");
+
+console.log(myHash.length());
+
+console.log(myHash.clear());
 
 console.log(myHash.length());
