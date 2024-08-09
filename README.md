@@ -25,7 +25,6 @@ myHash.set("apple", "red");
 myHash.set("banana", "yellow");
 // Add more key-value pairs...
 myHash.set("lion", "golden");
-
 myHash.set("moon", "silver");
 
 console.log(myHash.hashMap); // Displays the internal structure of the HashMap
