@@ -62,6 +62,33 @@ class HashMap {
       return null;
     }
   }
+
+  has(key) {
+    let index = this.hash(key);
+    if (index < 0 || index >= this.numOfBuckets.length) {
+      throw new Error("Trying to access index out of bound");
+    }
+
+    let currentBucket = this.hashMap[index];
+
+    if (currentBucket !== null) {
+      if (currentBucket.key === key) {
+        return true;
+      } else if (currentBucket.nextNode !== null) {
+        while (currentBucket.nextNode !== null) {
+          currentBucket = currentBucket.nextNode;
+          if (currentBucket.key === key) {
+            return true;
+          }
+        }
+        return false;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
 }
 
 class Node {
@@ -80,8 +107,8 @@ myHash.set("sara", "This is the sara");
 
 myHash.set("tepe", "This is the tepe");
 
-console.log(myHash.get("pete"));
+console.log(myHash.has("pete"));
 
-console.log(myHash.get("tepe"));
+console.log(myHash.has("tepe"));
 
-console.log(myHash.get("peet"));
+console.log(myHash.has("peet"));
