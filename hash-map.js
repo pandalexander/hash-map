@@ -117,6 +117,26 @@ class HashMap {
       return false;
     }
   }
+
+  length() {
+    let count = 0;
+    for (let i = 0; i < this.numOfBuckets; i++) {
+      let current = this.hashMap[i];
+
+      if (current === null) {
+        continue;
+      } else if (current !== null && current.nextNode === null) {
+        count++;
+      } else if (current.nextNode !== null) {
+        count++;
+        while (current.nextNode !== null) {
+          current = current.nextNode;
+          count++;
+        }
+      }
+    }
+    return count;
+  }
 }
 
 class Node {
@@ -135,4 +155,4 @@ myHash.set("pa", "This is the pa");
 
 myHash.set("aaa", "This is the aaa");
 
-console.log(myHash.remove("patter"));
+console.log(myHash.length());
