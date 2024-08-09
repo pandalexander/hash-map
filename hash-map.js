@@ -263,9 +263,3 @@ myHash.set("lion", "golden");
 myHash.set("moon", "silver");
 
 console.log(myHash.hashMap);
-
-console.log("");
-console.log("<....................................................>");
-console.log("");
-
-console.log(myHash.get("peet"));
