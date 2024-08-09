@@ -1,7 +1,10 @@
 class HashMap {
-  constructor(numOfBuckets) {
+  constructor(numOfBuckets = 16, loadFactor = 0.75) {
     this.numOfBuckets = numOfBuckets;
+    this.loadFactor = loadFactor;
     this.hashMap = Array.from({ length: numOfBuckets }).fill(null);
+
+    this.maxEntries = this.loadFactor * this.numOfBuckets;
   }
 
   hash(key) {
@@ -14,8 +17,26 @@ class HashMap {
     return hashCode;
   }
 
+  growBuckets() {
+    let newHashMap = Array.from({ length: this.numOfBuckets * 2 }).fill(null);
+
+    let oldEntries = this.entries();
+
+    this.hashMap = newHashMap;
+
+    this.numOfBuckets = this.numOfBuckets * 2;
+
+    this.maxEntries = this.loadFactor * this.numOfBuckets;
+
+    oldEntries.forEach((node) => this.set(node.key, node.value));
+  }
+
   set(key, value) {
     let newNode = new Node(key, value);
+
+    if (this.length() + 1 > this.maxEntries) {
+      this.growBuckets();
+    }
 
     let hashCode = this.hash(key);
     let setIndex = hashCode;
@@ -38,7 +59,11 @@ class HashMap {
             current = current.nextNode;
           }
         }
-        current.nextNode = newNode;
+        if (current.key === key) {
+          current.value = value;
+        } else {
+          current.nextNode = newNode;
+        }
       } else {
         this.hashMap[setIndex].nextNode = newNode;
       }
@@ -221,13 +246,21 @@ class Node {
 
 const myHash = new HashMap(16);
 
-myHash.set("a", "This is the a");
+myHash.set("apple", "red");
+myHash.set("banana", "yellow");
+myHash.set("carrot", "orange");
+myHash.set("dog", "brown");
+myHash.set("elephant", "gray");
+myHash.set("frog", "green");
+myHash.set("grape", "purple");
+myHash.set("hat", "black");
+myHash.set("ice cream", "white");
+myHash.set("jacket", "blue");
+myHash.set("kite", "pink");
+myHash.set("lion", "golden");
 
-myHash.set("pa", "This is the pa");
+console.log(myHash.hashMap);
 
-myHash.set("aaa", "This is the aaa");
+myHash.set("lion", "meanie!");
 
-myHash.set("petra", "This is the petra");
-
-console.log(myHash.keys());
-console.log(myHash.values());
+console.log(myHash.hashMap);
