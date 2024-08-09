@@ -88,6 +88,7 @@ class HashMap {
             return currentBucket.value;
           }
         }
+        return null;
       }
     } else {
       return null;
@@ -259,8 +260,12 @@ myHash.set("jacket", "blue");
 myHash.set("kite", "pink");
 myHash.set("lion", "golden");
 
-console.log(myHash.hashMap);
-
-myHash.set("lion", "meanie!");
+myHash.set("moon", "silver");
 
 console.log(myHash.hashMap);
+
+console.log("");
+console.log("<....................................................>");
+console.log("");
+
+console.log(myHash.get("peet"));
