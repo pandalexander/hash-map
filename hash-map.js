@@ -11,7 +11,6 @@ class HashMap {
     for (let i = 0; i < key.length; i++) {
       hashCode = (prime * hashCode + key.charCodeAt(i)) % this.numOfBuckets;
     }
-
     return hashCode;
   }
 
@@ -30,13 +29,20 @@ class HashMap {
     } else {
       if (this.hashMap[setIndex].key === key) {
         this.hashMap[setIndex].value = value;
+      } else if (this.hashMap[setIndex].nextNode !== null) {
+        let current = this.hashMap[setIndex];
+        while (current.nextNode !== null) {
+          if (current.key === key) {
+            current.value = value;
+          } else {
+            current = current.nextNode;
+          }
+        }
+        current.nextNode = newNode;
       } else {
         this.hashMap[setIndex].nextNode = newNode;
       }
     }
-
-    console.log(this.hashMap);
-    console.log("");
   }
 
   get(key) {
@@ -89,6 +95,28 @@ class HashMap {
       return false;
     }
   }
+
+  remove(key) {
+    let current = this.hashMap[this.hash(key)];
+
+    if (current === null) {
+      return false;
+    } else if (current.key === key) {
+      this.hashMap[this.hash(key)] = current.nextNode;
+      return true;
+    } else {
+      while (current.nextNode !== null) {
+        let child = current.nextNode;
+        if (child.key === key) {
+          current.nextNode = child.nextNode;
+          return true;
+        } else {
+          current = current.nextNode;
+        }
+      }
+      return false;
+    }
+  }
 }
 
 class Node {
@@ -101,14 +129,10 @@ class Node {
 
 const myHash = new HashMap(16);
 
-myHash.set("pete", "This is the pete");
+myHash.set("a", "This is the a");
 
-myHash.set("sara", "This is the sara");
+myHash.set("pa", "This is the pa");
 
-myHash.set("tepe", "This is the tepe");
+myHash.set("aaa", "This is the aaa");
 
-console.log(myHash.has("pete"));
-
-console.log(myHash.has("tepe"));
-
-console.log(myHash.has("peet"));
+console.log(myHash.remove("patter"));
