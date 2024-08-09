@@ -186,6 +186,29 @@ class HashMap {
 
     return keysArray;
   }
+
+  values() {
+    let valuesArray = [];
+
+    for (let i = 0; i < this.numOfBuckets; i++) {
+      let current = this.hashMap[i];
+
+      if (current === null) {
+        continue;
+      } else if (current.nextNode === null) {
+        valuesArray.push(current.value);
+      } else {
+        valuesArray.push(current.value);
+
+        while (current.nextNode !== null) {
+          current = current.nextNode;
+          valuesArray.push(current.value);
+        }
+      }
+    }
+
+    return valuesArray;
+  }
 }
 
 class Node {
@@ -207,3 +230,4 @@ myHash.set("aaa", "This is the aaa");
 myHash.set("petra", "This is the petra");
 
 console.log(myHash.keys());
+console.log(myHash.values());
