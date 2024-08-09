@@ -143,25 +143,25 @@ class HashMap {
     return true;
   }
 
-  keys() {
-    let keys = [];
+  entries() {
+    let entries = [];
     for (let i = 0; i < this.numOfBuckets; i++) {
       let current = this.hashMap[i];
 
       if (current === null) {
         continue;
       } else if (current !== null && current.nextNode === null) {
-        keys.push(current);
+        entries.push(current);
       } else if (current.nextNode !== null) {
         while (current.nextNode !== null) {
           let freshKey = new Node(current.key, current.value);
-          keys.push(freshKey);
+          entries.push(freshKey);
           current = current.nextNode;
         }
-        keys.push(current);
+        entries.push(current);
       }
     }
-    return keys;
+    return entries;
   }
 }
 
@@ -181,7 +181,7 @@ myHash.set("pa", "This is the pa");
 
 myHash.set("aaa", "This is the aaa");
 
-let arr = myHash.keys();
+let arr = myHash.entries();
 
 console.log(arr[0]);
 console.log("");
